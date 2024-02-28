@@ -67,17 +67,13 @@ module.exports = (on, config) => {
     confirmTransaction: keplr.confirmTransaction,
     setupWallet: async ({
       secretWordsOrPrivateKey,
-      network,
       password,
-      enableAdvancedSettings,
-      enableExperimentalSettings,
+      newAccount,
     }) => {
       await keplr.initialSetup(null, {
         secretWordsOrPrivateKey,
-        network,
         password,
-        enableAdvancedSettings,
-        enableExperimentalSettings,
+        newAccount
       });
       return true;
     },

@@ -1,5 +1,6 @@
 const createWalletButton = 'Create a new wallet';
-const importRecoveryPhraseButton = 'Import existing recovery phrase';
+const existingWalletButton = 'Import an existing wallet';
+const importRecoveryPhraseButton = 'Import existing recovery phrase'; 
 const useRecoveryPhraseButton = 'Use recovery phrase or private key';
 const phraseCount24 = '24 words';
 const phrasePrivateKey = 'Private key';
@@ -16,6 +17,7 @@ const textAreaSelector = 'textbox';
 const submitPhraseButton = 'button[type="submit"]';
 
 module.exports.onboardingElements = {
+  existingWalletButton,
   createWalletButton,
   importRecoveryPhraseButton,
   useRecoveryPhraseButton,

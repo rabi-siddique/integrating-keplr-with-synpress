@@ -415,10 +415,12 @@ Cypress.Commands.add(
   (
     secretWordsOrPrivateKey = 'orbit bench unit task food shock brand bracket domain regular warfare company announce wheel grape trust sphere boy doctor half guard ritual three ecology',
     password = 'Test1234',
+    newAccount = false
   ) => {
     return cy.task('setupWallet', {
       secretWordsOrPrivateKey,
-      password
+      password,
+      newAccount
     });
   },
 );
