@@ -438,3 +438,7 @@ Cypress.Commands.add('isExtensionWindowActive', () => {
 Cypress.Commands.add('switchToExtensionWindow', () => {
   return cy.task('switchToExtensionWindow');
 });
+
+Cypress.Commands.add('switchToExtensionRegistrationWindow', () => {
+  return cy.task('switchToExtensionRegistrationWindow');
+});

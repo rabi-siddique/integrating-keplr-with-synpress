@@ -7,6 +7,7 @@ let browser;
 let mainWindow;
 let keplrWindow;
 let keplrNotificationWindow;
+let keplrRegistrationWindow;
 let activeTabName;
 let extensionsData = {};
 let retries = 0;
@@ -19,6 +20,7 @@ module.exports = {
     keplrWindow = undefined;
     activeTabName = undefined;
     keplrNotificationWindow = undefined;
+    keplrRegistrationWindow = undefined;
     retries = 0;
     extensionsData = {};
   },
@@ -75,6 +77,10 @@ module.exports = {
 
   keplrNotificationWindow() {
     return keplrNotificationWindow;
+  },
+
+  async clickByText(text, page = keplrWindow) {
+    await page.click(`text="${text}"`);
   },
 
   async waitAndClickByText(text, page = keplrWindow) {
@@ -170,16 +176,13 @@ module.exports = {
   },
 
   async waitUntilStable(page) {
-    const keplrExtensionData = (await module.exports.getExtensionsData())
-      .keplr;
+    const keplrExtensionData = (await module.exports.getExtensionsData()).keplr;
 
     if (
       page &&
       page
         .url()
-        .includes(
-          `chrome-extension://${keplrExtensionData.id}/register.html`,
-        )
+        .includes(`chrome-extension://${keplrExtensionData.id}/register.html`)
     ) {
       await page.waitForLoadState('load');
       await page.waitForLoadState('domcontentloaded');
@@ -215,6 +218,14 @@ module.exports = {
       }
     }
     return element;
+  },
+  async doesElementExist(selector, timeout = 1000, page = keplrWindow) {
+    try {
+      await page.waitForSelector(selector, { timeout });
+      return true;
+    } catch (error) {
+      return false;
+    }
   },
   async waitForByText(text, page = keplrWindow) {
     await module.exports.waitUntilStable(page);
@@ -347,6 +358,13 @@ module.exports = {
     return extensionsData;
   },
 
+  async switchToKeplrRegistrationWindow() {
+    const keplrExtensionData = (await module.exports.getExtensionsData()).keplr;
+    const browserContext = await browser.contexts()[0];
+    keplrRegistrationWindow = await browserContext.newPage();
+    await keplrRegistrationWindow.goto(`chrome-extension://${keplrExtensionData.id}/register.html`); 
+    return true;
+  },
   async switchToKeplrNotification() {
     const keplrExtensionData = (await module.exports.getExtensionsData()).keplr;
 

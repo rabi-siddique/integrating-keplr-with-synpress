@@ -59,6 +59,7 @@ module.exports = (on, config) => {
     clearWindows: playwright.clearWindows,
     isCypressWindowActive: playwright.isCypressWindowActive,
     switchToExtensionWindow: playwright.switchToKeplrWindow,
+    switchToExtensionRegistrationWindow: playwright.switchToKeplrRegistrationWindow,
 
     // keplr commands
     importWallet: keplr.importWallet,
