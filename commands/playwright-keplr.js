@@ -79,6 +79,10 @@ module.exports = {
     return keplrNotificationWindow;
   },
 
+  browser() {
+    return browser;
+  },
+
   async clickByText(text, page = keplrWindow) {
     await page.click(`text="${text}"`);
   },
@@ -362,7 +366,9 @@ module.exports = {
     const keplrExtensionData = (await module.exports.getExtensionsData()).keplr;
     const browserContext = await browser.contexts()[0];
     keplrRegistrationWindow = await browserContext.newPage();
-    await keplrRegistrationWindow.goto(`chrome-extension://${keplrExtensionData.id}/register.html`); 
+    await keplrRegistrationWindow.goto(
+      `chrome-extension://${keplrExtensionData.id}/register.html`,
+    );
     return true;
   },
   async switchToKeplrNotification() {
@@ -379,7 +385,7 @@ module.exports = {
         retries = 0;
         await page.bringToFront();
         await module.exports.waitUntilStable(page);
-        return page;
+        return { page, err: false };
       }
     }
     await sleep(200);
@@ -388,9 +394,10 @@ module.exports = {
       return await module.exports.switchToKeplrNotification();
     } else if (retries >= 50) {
       retries = 0;
-      throw new Error(
-        '[switchToKeplrNotification] Max amount of retries to switch to keplr notification window has been reached. It was never found.',
-      );
+      return {
+        err: true,
+        message: 'Unable to Switch to Notification Window',
+      };
     }
   },
 };
