@@ -47,5 +47,13 @@ describe('Keplr', () => {
         });
       });
     });
+
+    it(`should disconnect the wallet from all the connected DAPPs`, () => {
+      cy.switchToExtensionPermissionWindow().then(() => {
+        cy.disconnectWalletFromDapp().then(taskCompleted => {
+          expect(taskCompleted).to.be.true;
+        });
+      });
+    });
   });
 });

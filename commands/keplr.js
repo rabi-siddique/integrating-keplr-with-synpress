@@ -114,6 +114,14 @@ const keplr = {
 
     return true;
   },
+  async disconnectWalletFromDapp() {
+    await playwright.waitAndClickByText(
+      'Disconnect All',
+      playwright.keplrPermissionWindow(),
+      exact = false,
+    );
+    return true;
+  },
   async importWalletWithPhrase(secretWords) {
     await playwright.waitAndClickByText(
       onboardingElements.phraseCount24,
