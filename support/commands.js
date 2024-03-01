@@ -445,6 +445,14 @@ Cypress.Commands.add('switchToExtensionRegistrationWindow', () => {
   return cy.task('switchToExtensionRegistrationWindow');
 });
 
+Cypress.Commands.add('switchToExtensionPermissionWindow', () => {
+  return cy.task('switchToExtensionPermissionWindow');
+});
+
+Cypress.Commands.add('disconnectWallet', () => {
+  return cy.task('disconnectWallet');
+});
+
 Cypress.Commands.add('makeOfferAndConfirmTransaction', () => {
   cy.contains('agoric1p2aqakv3ulz4qfy2nut86j9gx0dx0yw09h96md');
   cy.contains('Make an Offer').click();

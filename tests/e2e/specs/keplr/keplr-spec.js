@@ -33,6 +33,14 @@ describe('Keplr', () => {
       });
     });
 
+    it(`should disconnect the wallet from all the connected DAPPs`, () => {
+      cy.switchToExtensionPermissionWindow().then(() => {
+        cy.disconnectWallet().then(taskCompleted => {
+          expect(taskCompleted).to.be.true;
+        });
+      });
+    });
+
     it(`should complete Keplr setup by importing the wallet using private key`, () => {
       cy.switchToExtensionRegistrationWindow().then(() => {
         cy.setupWallet(

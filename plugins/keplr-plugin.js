@@ -60,11 +60,13 @@ module.exports = (on, config) => {
     isCypressWindowActive: playwright.isCypressWindowActive,
     switchToExtensionWindow: playwright.switchToKeplrWindow,
     switchToExtensionRegistrationWindow: playwright.switchToKeplrRegistrationWindow,
+    switchToExtensionPermissionWindow: playwright.switchToKeplrPermissionWindow,
 
     // keplr commands
     importWallet: keplr.importWallet,
     acceptAccess: keplr.acceptAccess,
     confirmTransaction: keplr.confirmTransaction,
+    disconnectWallet: keplr.disconnectWallet,
     setupWallet: async ({
       secretWordsOrPrivateKey,
       password,

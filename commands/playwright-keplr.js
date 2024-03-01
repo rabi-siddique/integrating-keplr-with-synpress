@@ -8,6 +8,7 @@ let mainWindow;
 let keplrWindow;
 let keplrNotificationWindow;
 let keplrRegistrationWindow;
+let keplrPermissionWindow;
 let activeTabName;
 let extensionsData = {};
 let retries = 0;
@@ -21,6 +22,7 @@ module.exports = {
     activeTabName = undefined;
     keplrNotificationWindow = undefined;
     keplrRegistrationWindow = undefined;
+    keplrPermissionWindow = undefined;
     retries = 0;
     extensionsData = {};
   },
@@ -29,7 +31,7 @@ module.exports = {
     const chromium = playwrightInstance
       ? playwrightInstance
       : require('@playwright/test').chromium;
-    const debuggerDetails = await fetch('http://127.0.0.1:9222/json/version'); //DevSkim: ignore DS137138
+    const debuggerDetails = await fetch('http://127.0.0.1:9222/json/version');
     const debuggerDetailsConfig = await debuggerDetails.json();
     const webSocketDebuggerUrl = debuggerDetailsConfig.webSocketDebuggerUrl;
     if (process.env.SLOW_MODE) {
@@ -362,6 +364,20 @@ module.exports = {
     return extensionsData;
   },
 
+  keplrPermissionWindow() {
+    return keplrPermissionWindow;
+  },
+
+  async switchToKeplrPermissionWindow() {
+    const keplrExtensionData = (await module.exports.getExtensionsData()).keplr;
+    const browserContext = await browser.contexts()[0];
+    keplrPermissionWindow = await browserContext.newPage();
+    await keplrPermissionWindow.goto(
+      `chrome-extension://${keplrExtensionData.id}/popup.html#/setting/security/permission`,
+    );
+    return true;
+  },
+
   async switchToKeplrRegistrationWindow() {
     const keplrExtensionData = (await module.exports.getExtensionsData()).keplr;
     const browserContext = await browser.contexts()[0];
@@ -371,6 +387,7 @@ module.exports = {
     );
     return true;
   },
+  
   async switchToKeplrNotification() {
     const keplrExtensionData = (await module.exports.getExtensionsData()).keplr;
 

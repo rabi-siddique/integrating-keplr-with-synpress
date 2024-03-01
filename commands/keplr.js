@@ -179,6 +179,14 @@ const keplr = {
     return true;
   },
 
+  async disconnectWallet() {
+    await playwright.clickByText(
+      'Disconnect All',
+      playwright.keplrPermissionWindow(),
+    );
+    return true;
+  },
+
   async initialSetup(
     playwrightInstance,
     { secretWordsOrPrivateKey, password, newAccount },
