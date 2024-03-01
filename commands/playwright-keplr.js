@@ -385,7 +385,7 @@ module.exports = {
         retries = 0;
         await page.bringToFront();
         await module.exports.waitUntilStable(page);
-        return { page, err: false };
+        return page
       }
     }
     await sleep(200);
@@ -394,10 +394,9 @@ module.exports = {
       return await module.exports.switchToKeplrNotification();
     } else if (retries >= 50) {
       retries = 0;
-      return {
-        err: true,
-        message: 'Unable to Switch to Notification Window',
-      };
+      throw new Error(
+        '[switchToKeplrNotification] Max amount of retries to switch to keplr notification window has been reached. It was never found.',
+      );
     }
   },
 };

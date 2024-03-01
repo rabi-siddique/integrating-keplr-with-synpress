@@ -24,11 +24,10 @@ describe('Keplr', () => {
           expect(setupFinished).to.be.true;
 
           cy.visit('/');
+          // We're not calling the acceptAccess function
+          // The assumption here is that user is already connected to the wallet when the first test case ran
           cy.contains('Connect Wallet').click();
-          cy.acceptAccess().then(taskCompleted => {
-            expect(taskCompleted).to.be.true;
-            cy.makeOfferAndConfirmTransaction();
-          });
+          cy.makeOfferAndConfirmTransaction();
         });
       });
     });
