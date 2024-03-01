@@ -35,7 +35,7 @@ const keplr = {
     };
   },
 
-  async importWallet(secretWords, password, newAccount) {
+  async importWallet(secretWordsOrPrivateKey, password, newAccount) {
     await playwright.waitAndClickByText(
       newAccount
         ? onboardingElements.createWalletButton
@@ -56,10 +56,16 @@ const keplr = {
         await playwright.keplrWindow(),
       ));
 
-    if (secretWords.includes(' ')) {
-      await module.exports.importWalletWithPhrase(secretWords, password);
+    if (secretWordsOrPrivateKey.includes(' ')) {
+      await module.exports.importWalletWithPhrase(
+        secretWordsOrPrivateKey,
+        password,
+      );
     } else {
-      await module.exports.importWalletWithPrivateKey(secretWords, password);
+      await module.exports.importWalletWithPrivateKey(
+        secretWordsOrPrivateKey,
+        password,
+      );
     }
 
     await playwright.waitAndType(
@@ -128,7 +134,11 @@ const keplr = {
     );
   },
   async importWalletWithPrivateKey(privateKey) {
-    await playwright.clickByText(onboardingElements.phrasePrivateKey);
+    await playwright.waitAndClickByText(
+      onboardingElements.phrasePrivateKey,
+      await playwright.keplrWindow(),
+      true,
+    );
 
     await playwright.waitAndTypeByLocator(
       onboardingElements.textAreaSelector,

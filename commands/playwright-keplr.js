@@ -79,13 +79,9 @@ module.exports = {
     return keplrNotificationWindow;
   },
 
-  async clickByText(text, page = keplrWindow) {
-    await page.click(`text="${text}"`);
-  },
-
-  async waitAndClickByText(text, page = keplrWindow) {
+  async waitAndClickByText(text, page = keplrWindow, exact = false) {
     await module.exports.waitForByText(text, page);
-    const element = `:is(:text-is("${text}"), :text("${text}"))`;
+    const element = `:is(:text-is("${text}")${exact ? '' : `, :text("${text}")`})`;
     await page.click(element);
     await module.exports.waitUntilStable();
   },
@@ -362,7 +358,9 @@ module.exports = {
     const keplrExtensionData = (await module.exports.getExtensionsData()).keplr;
     const browserContext = await browser.contexts()[0];
     keplrRegistrationWindow = await browserContext.newPage();
-    await keplrRegistrationWindow.goto(`chrome-extension://${keplrExtensionData.id}/register.html`); 
+    await keplrRegistrationWindow.goto(
+      `chrome-extension://${keplrExtensionData.id}/register.html`,
+    );
     return true;
   },
   async switchToKeplrNotification() {
