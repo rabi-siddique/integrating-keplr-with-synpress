@@ -141,39 +141,20 @@ const keplr = {
     );
   },
   async acceptAccess() {
-    const result = await playwright.switchToKeplrNotification();
-
-    if (
-      result.err &&
-      result.message === 'Unable to Switch to Notification Window'
-    ) {
-      let pages = await playwright.browser().contexts()[0].pages();
-
-      for (const page of pages) {
-        const pageContent = await page.textContent('html');
-        if (
-          pageContent.includes('agoric1p2aqakv3ulz4qfy2nut86j9gx0dx0yw09h96md')
-        ) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
+    const notificationPage = await playwright.switchToKeplrNotification();
     await playwright.waitAndClick(
       notificationPageElements.approveButton,
-      result.page,
+      notificationPage,
       { waitForEvent: 'close' },
     );
     return true;
   },
 
   async confirmTransaction() {
-    const result = await playwright.switchToKeplrNotification();
+    const notificationPage = await playwright.switchToKeplrNotification();
     await playwright.waitAndClick(
       notificationPageElements.approveButton,
-      result.page,
+      notificationPage,
       { waitForEvent: 'close' },
     );
     return true;
