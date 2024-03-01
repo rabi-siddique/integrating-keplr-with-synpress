@@ -37,52 +37,22 @@ const keplr = {
 
   async importWallet(secretWordsOrPrivateKey, password, newAccount) {
     await playwright.waitAndClickByText(
-      newAccount
-        ? onboardingElements.createWalletButton
-        : onboardingElements.existingWalletButton,
+      onboardingElements.createWalletButton,
       await playwright.keplrWindow(),
     );
-
     await playwright.waitAndClickByText(
-      newAccount
-        ? onboardingElements.importRecoveryPhraseButton
-        : onboardingElements.useRecoveryPhraseButton,
+      onboardingElements.importRecoveryPhraseButton,
+      await playwright.keplrWindow(),
+    );
+    await playwright.waitAndClickByText(
+      onboardingElements.useRecoveryPhraseButton,
       await playwright.keplrWindow(),
     );
 
-    newAccount &&
-      (await playwright.waitAndClickByText(
-        onboardingElements.useRecoveryPhraseButton,
-        await playwright.keplrWindow(),
-      ));
-
-    if (secretWordsOrPrivateKey.includes(' ')) {
-      await module.exports.importWalletWithPhrase(
-        secretWordsOrPrivateKey,
-        password,
-      );
+    if (secretWords.includes(' ')) {
+      await module.exports.importWalletWithPhrase(secretWords, password);
     } else {
-      await module.exports.importWalletWithPrivateKey(
-        secretWordsOrPrivateKey,
-        password,
-      );
-    }
-
-    await playwright.waitAndType(
-      onboardingElements.walletInput,
-      onboardingElements.walletName,
-    );
-
-    const passwordFieldExists = await playwright.doesElementExist(
-      onboardingElements.passwordInput,
-    );
-
-    if (passwordFieldExists) {
-      await playwright.waitAndType(onboardingElements.passwordInput, password);
-      await playwright.waitAndType(
-        onboardingElements.confirmPasswordInput,
-        password,
-      );
+      await module.exports.importWalletWithPrivateKey(secretWords, password);
     }
 
     await playwright.waitAndClick(
@@ -114,7 +84,7 @@ const keplr = {
 
     return true;
   },
-  async importWalletWithPhrase(secretWords) {
+  async importWalletWithPhrase(secretWords, password) {
     await playwright.waitAndClickByText(
       onboardingElements.phraseCount24,
       await playwright.keplrWindow(),
@@ -132,13 +102,19 @@ const keplr = {
       onboardingElements.submitPhraseButton,
       await playwright.keplrWindow(),
     );
-  },
-  async importWalletWithPrivateKey(privateKey) {
-    await playwright.waitAndClickByText(
-      onboardingElements.phrasePrivateKey,
-      await playwright.keplrWindow(),
-      true,
+
+    await playwright.waitAndType(
+      onboardingElements.walletInput,
+      onboardingElements.walletName,
     );
+    await playwright.waitAndType(onboardingElements.passwordInput, password);
+    await playwright.waitAndType(
+      onboardingElements.confirmPasswordInput,
+      password,
+    );
+  },
+  async importWalletWithPrivateKey(privateKey, password) {
+    await playwright.clickByText(onboardingElements.phrasePrivateKey);
 
     await playwright.waitAndTypeByLocator(
       onboardingElements.textAreaSelector,
@@ -149,6 +125,23 @@ const keplr = {
       onboardingElements.submitPhraseButton,
       await playwright.keplrWindow(),
     );
+
+    await playwright.waitAndType(
+      onboardingElements.walletInput,
+      onboardingElements.walletName,
+    );
+
+    const passwordFieldExists = await playwright.doesElementExist(
+      onboardingElements.passwordInput,
+    );
+
+    if (passwordFieldExists) {
+      await playwright.waitAndType(onboardingElements.passwordInput, password);
+      await playwright.waitAndType(
+        onboardingElements.confirmPasswordInput,
+        password,
+      );
+    }
   },
   async acceptAccess() {
     const notificationPage = await playwright.switchToKeplrNotification();
