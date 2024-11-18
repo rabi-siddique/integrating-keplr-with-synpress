@@ -1,25 +1,10 @@
 {
-  "name": "@rabi-siddique/synpress",
+  "name": "@rabi-siddique/testing-package",
   "version": "3.9.0",
-  "description": "Synpress is e2e testing framework based around Cypress.io & playwright with included MetaMask support. Test your dapps with ease.",
-  "keywords": [
-    "Synpress",
-    "Cypress",
-    "metamask",
-    "testing",
-    "e2e"
-  ],
-  "homepage": "https://github.com/agoric-labs/synpress#readme",
-  "bugs": {
-    "url": "https://github.com/agoric-labs/synpress/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/agoric-labs/synpress.git"
-  },
   "license": "MIT",
+  "description": "Testing the package publishing",
   "author": {
-    "name": "agoric-labs"
+    "name": "rabi-siddique"
   },
   "type": "commonjs",
   "main": "launcher.js",
