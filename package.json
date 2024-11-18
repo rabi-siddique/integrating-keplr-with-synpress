@@ -44,7 +44,7 @@
     "lint:sarif": "node lint.js . --ext js",
     "release": "release-it --disable-metrics",
     "release:major": "release-it major --disable-metrics",
-    "release:minor": "release-it minor --disable-metrics",
+    "release:minor": "release-it minor",
     "release:patch": "release-it patch --disable-metrics",
     "update:deps": "ncu -u -x 'node-fetch' && pnpm install",
     "start:server": "serve node_modules/@metamask/test-dapp/dist -p 3000",
