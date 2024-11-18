@@ -2,8 +2,8 @@
   "git": {
     "commitMessage": "release: v${version}",
     "tagName": "${version}",
-    "commitArgs": "-S -s",
-    "tagArgs": "-s"
+    "commitArgs": "--no-gpg-sign",
+    "tagArgs": ""
   },
   "github": {
     "release": true
