@@ -1,6 +1,6 @@
 {
   "name": "@rabi-siddique/testing-package",
-  "version": "3.17.1",
+  "version": "4.0.0",
   "type": "commonjs",
   "main": "launcher.js",
   "bin": {
