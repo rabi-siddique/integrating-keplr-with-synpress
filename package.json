@@ -1,5 +1,5 @@
 {
-  "name": "@rabi/synpress",
+  "name": "@rabi-siddique/synpress",
   "version": "3.9.0",
   "description": "Synpress is e2e testing framework based around Cypress.io & playwright with included MetaMask support. Test your dapps with ease.",
   "keywords": [
