@@ -49,8 +49,8 @@ jobs:
       - name: Chown workspace
         run: chown -R $(whoami) .
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --prefer-offline
+      # - name: Install dependencies
+      #   run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Set git config
         run: |
@@ -72,8 +72,6 @@ jobs:
 
       - name: Release ${{ github.event.inputs.version }}
         run: |
-          git reset --hard
-          pnpm release:minor --ci
           pnpm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
