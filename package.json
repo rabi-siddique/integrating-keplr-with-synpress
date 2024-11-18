@@ -1,26 +1,7 @@
 {
-  "name": "@agoric/synpress",
-  "version": "3.8.3",
-  "description": "Synpress is e2e testing framework based around Cypress.io & playwright with included MetaMask support. Test your dapps with ease.",
-  "keywords": [
-    "Synpress",
-    "Cypress",
-    "metamask",
-    "testing",
-    "e2e"
-  ],
-  "homepage": "https://github.com/agoric-labs/synpress#readme",
-  "bugs": {
-    "url": "https://github.com/agoric-labs/synpress/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/agoric-labs/synpress.git"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "agoric-labs"
-  },
+  "name": "@rabi-siddique/testing-package",
+  "version": "3.15.0",
+  "description": "Testing publishing",
   "type": "commonjs",
   "main": "launcher.js",
   "bin": {
@@ -34,14 +15,6 @@
       "prettier --write --ignore-unknown"
     ]
   },
-  "release-it": {
-    "git": {
-      "commitMessage": "release: v${version}",
-      "tagName": "${version}",
-      "tagAnnotation": "Release v${version}",
-      "push": true
-    }
-  },
   "scripts": {
     "fix": "turbo fix:eslint fix:prettier --concurrency 1",
     "fix:eslint": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
@@ -50,18 +23,17 @@
     "lint:eslint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:prettier": "prettier --check **/*.{js,json,ts,tsx,html}",
     "lint:sarif": "node lint.js . --ext js",
-    "release": "release-it --disable-metrics",
-    "release:major": "release-it major --disable-metrics",
-    "release:minor": "release-it minor --disable-metrics",
-    "release:patch": "release-it patch --disable-metrics",
+    "release": "release-it",
+    "release:major": "release-it major",
+    "release:minor": "release-it minor",
+    "release:patch": "release-it patch",
     "update:deps": "ncu -u -x 'node-fetch' && pnpm install",
     "start:server": "serve node_modules/@metamask/test-dapp/dist -p 3000",
     "start:contract": "cd tools/contract && pnpm start",
     "start:ui": "cd tools/ui && pnpm dev",
     "start:json-server": "json-server tools/json-server-db.json --port 3004",
     "synpress:run:metamask": "CYPRESS_SPEC_PATTERN=tests/e2e/specs/metamask/** EXTENSION=metamask SKIP_EXTENSION_SETUP=true SYNPRESS_LOCAL_TEST=true node synpress.js run --configFile=synpress.config.js",
-    "synpress:run:keplr": "CYPRESS_SPEC_PATTERN=tests/e2e/specs/keplr/** EXTENSION=keplr SKIP_EXTENSION_SETUP=true SYNPRESS_LOCAL_TEST=true node synpress.js run --configFile=synpress.config.js",
-    "prepare": "husky"
+    "synpress:run:keplr": "CYPRESS_SPEC_PATTERN=tests/e2e/specs/keplr/** EXTENSION=keplr SKIP_EXTENSION_SETUP=true SYNPRESS_LOCAL_TEST=true node synpress.js run --configFile=synpress.config.js"
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.11.0",
