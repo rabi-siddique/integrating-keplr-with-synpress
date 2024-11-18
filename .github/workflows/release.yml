@@ -56,16 +56,8 @@ jobs:
         run: |
           git config --global user.name 'rabi-siddique'
           git config --global user.email $GIT_EMAIL
-          mkdir -p ~/.gnupg/
-          printf $GPG_KEY | base64 -d > ~/.gnupg/private.key
-          gpg --import ~/.gnupg/private.key
-          gpg --list-keys
-          git config commit.gpgsign true
-          git config user.signingkey $GIT_SIGNING_KEY
         env:
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-          GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
 
       - name: Set pnpm config
         run: pnpm config set "//registry.npmjs.org/:_authToken" "${NPM_TOKEN}"
@@ -88,8 +80,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-          GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
 
       - name: Release patch:beta
         if: github.event_name == 'push'
@@ -108,5 +98,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-          GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
