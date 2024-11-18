@@ -3,7 +3,7 @@
     "commitMessage": "release: v${version}",
     "tagName": "${version}",
     "commitArgs": "--no-gpg-sign",
-    "tagArgs": ""
+    "tagArgs": "--no-sign"
   },
   "github": {
     "release": true
