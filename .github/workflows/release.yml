@@ -54,8 +54,8 @@ jobs:
 
       - name: Set git config
         run: |
-          git config user.name $GIT_USER
-          git config user.email $GIT_EMAIL
+          git config --global user.name "${{ secrets.GIT_AUTHOR_NAME }}"
+          git config --global user.email $GIT_EMAIL
           mkdir -p ~/.gnupg/
           printf $GPG_KEY | base64 -d > ~/.gnupg/private.key
           cat ~/.gnupg/private.key | grep -v 'KEY'  # Safely check contents without displaying keys
@@ -64,7 +64,6 @@ jobs:
           git config commit.gpgsign true
           git config user.signingkey $GIT_SIGNING_KEY
         env:
-          GIT_USER: ${{ secrets.GIT_AUTHOR_NAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
           GPG_KEY: ${{ secrets.GPG_KEY }}
           GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
@@ -89,7 +88,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GIT_USER: ${{ secrets.GIT_AUTHOR_NAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
           GPG_KEY: ${{ secrets.GPG_KEY }}
           GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
@@ -110,7 +108,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GIT_USER: ${{ secrets.GIT_AUTHOR_NAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
           GPG_KEY: ${{ secrets.GPG_KEY }}
           GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
