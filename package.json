@@ -33,8 +33,7 @@
     "start:ui": "cd tools/ui && pnpm dev",
     "start:json-server": "json-server tools/json-server-db.json --port 3004",
     "synpress:run:metamask": "CYPRESS_SPEC_PATTERN=tests/e2e/specs/metamask/** EXTENSION=metamask SKIP_EXTENSION_SETUP=true SYNPRESS_LOCAL_TEST=true node synpress.js run --configFile=synpress.config.js",
-    "synpress:run:keplr": "CYPRESS_SPEC_PATTERN=tests/e2e/specs/keplr/** EXTENSION=keplr SKIP_EXTENSION_SETUP=true SYNPRESS_LOCAL_TEST=true node synpress.js run --configFile=synpress.config.js",
-    "prepare": "husky"
+    "synpress:run:keplr": "CYPRESS_SPEC_PATTERN=tests/e2e/specs/keplr/** EXTENSION=keplr SKIP_EXTENSION_SETUP=true SYNPRESS_LOCAL_TEST=true node synpress.js run --configFile=synpress.config.js"
   },
   "dependencies": {
     "@cypress/code-coverage": "^3.11.0",
