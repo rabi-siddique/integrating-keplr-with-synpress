@@ -49,8 +49,8 @@ jobs:
       - name: Chown workspace
         run: chown -R $(whoami) .
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile --prefer-offline
+      # - name: Install dependencies
+      #   run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Set git config
         run: |
