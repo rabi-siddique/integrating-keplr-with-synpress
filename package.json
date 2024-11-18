@@ -20,6 +20,9 @@
       "tagName": "${version}",
       "tagAnnotation": "Release v${version}",
       "push": true
+    },
+    "github": {
+      "release": true
     }
   },
   "scripts": {
@@ -30,10 +33,6 @@
     "lint:eslint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:prettier": "prettier --check **/*.{js,json,ts,tsx,html}",
     "lint:sarif": "node lint.js . --ext js",
-    "release": "release-it --disable-metrics",
-    "release:major": "release-it major --disable-metrics",
-    "release:minor": "release-it minor --disable-metrics",
-    "release:patch": "release-it patch --disable-metrics",
     "update:deps": "ncu -u -x 'node-fetch' && pnpm install",
     "start:server": "serve node_modules/@metamask/test-dapp/dist -p 3000",
     "start:contract": "cd tools/contract && pnpm start",

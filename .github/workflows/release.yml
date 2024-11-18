@@ -43,7 +43,7 @@ jobs:
           git config --global user.name "${{ secrets.GIT_USER }}"
           git config --global user.email "${{ secrets.GIT_EMAIL }}"
 
-      - name: Release with release-it
+      - name: Publish with release-it
         run: npx release-it --increment ${{ github.event.inputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
