@@ -1,6 +1,7 @@
 name: Release CI
 
 on:
+  pull_request:
   push:
     branches: [master]
   workflow_dispatch:
@@ -24,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # pin@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: master
@@ -34,7 +35,7 @@ jobs:
         continue-on-error: true
 
       - name: Setup cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # pin@v2
+        uses: actions/cache@v4
         with:
           path: |
             .pnpm-store
@@ -53,18 +54,10 @@ jobs:
 
       - name: Set git config
         run: |
-          git config user.name $GIT_USER
-          git config user.email $GIT_EMAIL
-          mkdir -p ~/.gnupg/
-          printf $GPG_KEY | base64 -d > ~/.gnupg/private.key
-          gpg --import ~/.gnupg/private.key
-          git config commit.gpgsign true
-          git config user.signingkey $GIT_SIGNING_KEY
+          git config --global user.name 'rabi-siddique'
+          git config --global user.email $GIT_EMAIL
         env:
-          GIT_USER: ${{ secrets.GIT_USER }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-          GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
 
       - name: Set pnpm config
         run: pnpm config set "//registry.npmjs.org/:_authToken" "${NPM_TOKEN}"
@@ -78,18 +71,12 @@ jobs:
           echo ::set-output name=current-version::$PACKAGE_VERSION
 
       - name: Release ${{ github.event.inputs.version }}
-        if: github.event_name == 'workflow_dispatch'
         run: |
-          git reset --hard
-          pnpm release:${{ github.event.inputs.version }} --ci
           pnpm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GIT_USER: ${{ secrets.GIT_USER }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-          GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
 
       - name: Release patch:beta
         if: github.event_name == 'push'
@@ -107,7 +94,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GIT_USER: ${{ secrets.GIT_USER }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-          GIT_SIGNING_KEY: ${{ secrets.GIT_SIGNING_KEY }}
