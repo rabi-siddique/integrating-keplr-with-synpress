@@ -1,25 +1,10 @@
 {
-  "name": "@agoric/synpress",
-  "version": "3.8.3-beta.2",
-  "description": "Synpress is e2e testing framework based around Cypress.io & playwright with included MetaMask support. Test your dapps with ease.",
-  "keywords": [
-    "Synpress",
-    "Cypress",
-    "metamask",
-    "testing",
-    "e2e"
-  ],
-  "homepage": "https://github.com/agoric-labs/synpress#readme",
-  "bugs": {
-    "url": "https://github.com/agoric-labs/synpress/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/agoric-labs/synpress.git"
-  },
+  "name": "@rabi-siddique/testing-package",
+  "version": "3.9.0",
   "license": "MIT",
+  "description": "Testing the package publishing",
   "author": {
-    "name": "agoric-labs"
+    "name": "rabi-siddique"
   },
   "type": "commonjs",
   "main": "launcher.js",
@@ -44,7 +29,7 @@
     "lint:sarif": "node lint.js . --ext js",
     "release": "release-it --disable-metrics",
     "release:major": "release-it major --disable-metrics",
-    "release:minor": "release-it minor --disable-metrics",
+    "release:minor": "release-it minor",
     "release:patch": "release-it patch --disable-metrics",
     "update:deps": "ncu -u -x 'node-fetch' && pnpm install",
     "start:server": "serve node_modules/@metamask/test-dapp/dist -p 3000",
