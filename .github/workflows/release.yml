@@ -54,7 +54,7 @@ jobs:
 
       - name: Set git config
         run: |
-          git config --global user.name "${{ secrets.GIT_AUTHOR_NAME }}"
+          git config --global user.name 'rabi-siddique'
           git config --global user.email $GIT_EMAIL
           mkdir -p ~/.gnupg/
           printf $GPG_KEY | base64 -d > ~/.gnupg/private.key
